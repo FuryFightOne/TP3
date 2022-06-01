@@ -17,7 +17,7 @@ function incrementerDuree() {
   }
 }
 
-function ajouter(){
+function add(){
     //Vérifier que la récupération se fait bien !)
     console.log(document.forms.newTaskF.task.value);
     console.log(document.forms.newTaskF.date.value);
@@ -36,35 +36,31 @@ function ajouter(){
     durationTd.classList.add('duree')
     const finish = document.createElement("td")
     const buttonFinish = document.createElement("button")
-    //const selectEntree = document.getElementById("entreeId");
-    //const valeurselectionnee = selectEntree.options[selectEntree.selectedIndex].value;
-    //const textselectionne = selectEntree.options[selectEntree.selectedIndex].text;
-    //Vérification de la récupération
-    console.log(taskTd.textContent)
-    console.log(dateTd.textContent)
-    console.log(categorieTd.textContent)
-    console.log(durationTd.textContent)
 
     if (!document.newTaskF.task.checkValidity() || !document.newTaskF.date.checkValidity() || !document.newTaskF.category.checkValidity()){
       return
     }
 
-    let isFinish = false
-    buttonFinish.onclick = () => isFinish = true
-    buttonFinish.textContent = "Finish task"
+    
+    let timer = setInterval("incrementerDuree()",1000)
+    durationTd.textContent = timer
 
+
+    buttonFinish.textContent = "Finish task"
+    buttonFinish.addEventListener("click", () =>{
+      const timerValue =  timer
+      buttonFinish.textContent = "Finished"
+      finish.textContent = start_end_task()
+      durationTd.textContent=timerValue
+    }) 
+    
     
 
+    
+    
     //const table = document.querySelector('table')
     newItem.append(taskTd, dateTd, categorieTd, ajouterTd, durationTd, finish, buttonFinish)
 
-    if(!isFinish){
-      durationTd.textContent = setInterval("incrementerDuree()",1000)
-    }
-    else{
-      durationTd.textContent = "Finished"
-    }
-    
 
      /* le premier élément dans le document qui contient la classe "datatable" est retourné*/
     const table = document.querySelector('.datatable tbody')
@@ -83,9 +79,4 @@ function supprimer() {
     
 }
 
-    
-    let isFinish = false
-    buttonFinish.onclick = () => isFinish = true
-    buttonFinish.textContent = "Finish task"
-    
    
