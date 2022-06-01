@@ -1,50 +1,100 @@
-var newCommandForm = document.forms.newTaskF; 
+const supr = document.querySelector('.supprimer')
+supr.addEventListener('click', (e) => {
+    e.preventDefault()
+    const table = document.getElementById('table')
+    while (table.childElementCount > 1) {
+        table.removeChild(table.lastChild)
+    }
+})
 
 
-function ajouter(){
-    //Vérifier que la récupération se fait bien !)
-    console.log(document.forms.newTaskF.tache.value);
-    console.log(document.forms.newTaskF.date.value);
+async function ajouter() {
+    let form = document.forms;
+    const tr = document.createElement("tr")
+    const name = document.createElement("td")
+    const date = document.createElement("td")
+    const category = document.createElement("td")
+    const add_date = document.createElement("td")
+    const duree = document.createElement("td")
+    const terminer = document.createElement("td")
+    const buttonFinish = document.createElement("button")
+    duree.classList.add('duree')
+    name.textContent = form[0].elements[0].value
+    date.textContent = form[0].elements[1].value
+    category.textContent = form[0].elements[2].value
+    duree.textContent = 0
+    let isFinish = false
+    add_date.textContent = debut_fin_tache()
+    buttonFinish.onclick = () => isFinish = true
+    buttonFinish.textContent = "Terminer tache"
 
-    //création des variable pour la création d'une nouvelle ligne dans le tableau
-    const newItem = document.createElement('tr')
-    const taskTd = document.createElement('td')
-    const dateTd = document.createElement('td')
-    const categorieTd = document.createElement('td')
-    taskTd.textContent = document.newTaskF.tache.value
-    dateTd.textContent = document.newTaskF.date.value
-    categorieTd.textContent = document.newTaskF.categorie.value
-    
-    //const selectEntree = document.getElementById("entreeId");
-    //const valeurselectionnee = selectEntree.options[selectEntree.selectedIndex].value;
-    //const textselectionne = selectEntree.options[selectEntree.selectedIndex].text;
-   //Vérification de la récupération
-    console.log(taskTd.textContent)
-    console.log(dateTd.textContent)
-    console.log(categorieTd.textContent)
+    tr.appendChild(name)
+    tr.appendChild(date)
+    tr.appendChild(category)
+    tr.appendChild(add_date)
+    tr.appendChild(duree)
+    tr.appendChild(terminer)
+    tr.appendChild(buttonFinish)
+    document.getElementById("table").appendChild(tr)
 
-    if (!document.newTaskF.tache.checkValidity() ||
-          !document.newTaskF.date.checkValidity() ||
-          !document.newTaskF.categorie.checkValidity()
-         ) {
-               return
-        }
-    
-    //const table = document.querySelector('table')
-    newItem.append(taskTd, dateTd, categorieTd)
-
-     /* le premier élément dans le document qui contient la classe "datatable" est retourné*/
-    const table = document.querySelector('.datatable tbody')
-    /*  Ex2)3)vi) */
-    table.appendChild(newItem)
-
+    if (name.textContent === "BOT_RUN") {
+        activate_bot()
+    }
+    const increment = () => {
+        setTimeout(() => { 
+            if (!isFinish){
+                duree.textContent = parseInt(duree.textContent) + 1
+                increment();
+            }
+            else{
+                buttonFinish.textContent = "Terminer";
+                terminer.innerHTML = debut_fin_tache();
+            }
+        }, 1000);
+    }
+    increment();
 }
 
- //supprimer toutes les lignes du tableau
+function start_end_task(){
+  var d = new Date();
+  var date = new String;
+  date = (d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate()+" at "+d.getHours()+":"+d.getMinutes()+":"+d.getSeconds());
+  return date;
+}
+
+function incrementerDuree(){
+    let durees = document.getElementsByClassName('duree')
+    if(durees.length !=0){
+        Array.prototype.forEach.call(durees, (dureeElement) => {
+            let valeur = parseInt(dureeElement.textContent)
+            dureeElement.textContent = valeur + 1
+        });
+    }
+}
+
+
+
+let tache = {
+    name: "",
+    date: "",
+    category: "",
+    duree: 0,
+    isFinish: false
+}
+
+[Symbol.iterator] = function* () {
+    yield this.name;
+    yield this.date;
+    yield this.category;
+    yield this.duree;
+    yield this.isFinish;
+}
+
+//supprimer toutes les lignes du tableau
 function supprimer() {
-        const tbody = document.querySelector('.datatable tbody' )
-        while (tbody.firstChild) {
-          tbody.removeChild(tbody.firstChild)
-        }
-    
+  const tbody = document.querySelector('.datatable tbody' )
+  while (tbody.firstChild) {
+    tbody.removeChild(tbody.firstChild)
+  }
+
 }
