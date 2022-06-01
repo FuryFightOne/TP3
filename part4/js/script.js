@@ -1,3 +1,4 @@
+
 var newCommandForm = document.forms.newTaskF; 
 
 
@@ -47,4 +48,74 @@ function supprimer() {
           tbody.removeChild(tbody.firstChild)
         }
     
+}
+
+function logConsole(){
+  var tasks = JSON.parse(data)
+  for(let i=0; i<tasks.length;i++){
+    console.log("{task: "+tasks[i].task+", date: "+tasks[i].date+", category: "+tasks[i].category+"}")
+  } 
+}
+
+function loadTasks(){
+  var tasks = JSON.parse(data)
+  for(let i=0; i<tasks.length;i++){
+    const table = document.querySelector('.datatable tbody')
+    var row = document.createElement('tr')
+  
+    const task = document.createElement('td')
+    const date = document.createElement('td')
+    const category = document.createElement('td')
+
+    task.textContent = tasks[i].task
+    date.textContent = tasks[i].date
+    category.textContent = tasks[i].category
+
+    row.append(task,date,category)
+    table.appendChild(row)
+  }
+}
+
+function arrToObject (array){
+	var keys = array[0];
+	var newArr = array.slice(1, array.length);
+	var obj = [],
+  data = newArr,
+  cols = keys,
+  l = cols.length;
+	for (let i=0; i<data.length; i++) {
+			var d = data[i],
+					o = {};
+			for (var j=0; j<l; j++)
+					o[cols[j]] = d[j];
+			obj.push(o);
+	}
+	return obj;
+}
+
+function htmlToJson(){
+  var tasks = document.getElementById('datatable')
+  const tasksArray = [...tasks.rows].map(r => [...r.querySelectorAll('td, th')].map(td => td.textContent))
+  var JsonArray = JSON.stringify(arrToObject(tasksArray))
+  return JsonArray 
+}
+
+function createTask(task){
+  const table = document.querySelector('.datatable tbody')
+  const row = document.createElement('tr')
+  const id = document.createElement('td')
+  const name = document.createElement('td')
+  const status = document.createElement('td')
+
+  id.textContent = task.id
+  name.textContent = task.title
+  status.textContent = task.completed
+
+  if(!status.textContent.localeCompare("true")){
+    row.style.backgroundColor = "green";
+  }
+
+  row.append(id,name,status)
+
+  table.appendChild(row)
 }

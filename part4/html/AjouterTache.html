@@ -6,18 +6,20 @@
         <link rel= "stylesheet" href= "../styles/Styles.css"> 
         <link rel= "stylesheet" href= "../styles/menu_style.css">
         <script type="text/javascript" src="../js/script.js"></script>
-     
+        <script type="text/javascript" src="../Tasks.json"></script>
+
     </head>
        
        <!-- Le corps-->
        
-    <body>
+    <body onload="loadTasks()">
         <div class="header">
           <a href="https://temps-action.com/todo-list">
             <img srcset="../img/image1.png 480w,../img/image1.png 800w" sizes="(max-width: 600px) 480px, 800px" src="../img/image1.png" alt="ToDo image">
           </a>
         </div> 
-     
+            <button onclick="logConsole()">Log to console</button>
+            <button onclick="htmlToJson()">test</button>
             <h2> Ajouter votre tâche </h2>
             <form name="newTaskF" action="#" class="box" id="newTask" onsubmit="return false">
                 <strong>Nom de la tâche</strong> 
@@ -38,13 +40,12 @@
         <main>
             <div class="box">
                  
-                <table class="datatable">
+                <table class="datatable" id="datatable">
                     <thead>
                         <tr>
                         <th>Tâche</th>
                         <th>Date </th>
                         <th>Catégorie</th>
-
                         </tr>
                     </thead>
                     <tbody>
