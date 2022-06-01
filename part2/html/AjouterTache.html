@@ -1,64 +1,56 @@
 <!DOCTYPE html>
-<html lang="fr"><!-- L'en-tête -->
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <title>Ajouter une tâche</title>
-        <link rel= "stylesheet" href= "../styles/Styles.css"> 
-        <link rel= "stylesheet" href= "../styles/menu_style.css">
-        <script type="text/javascript" src="../js/script.js"></script>
-     
-    </head>
-       
-       <!-- Le corps-->
-       
-    <body>
-        <div class="header">
-          <a href="https://temps-action.com/todo-list">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire page</title>
+    <link rel="stylesheet" href="../styles/Styles.css">
+    <link rel="stylesheet" href="../styles/menu_style.css">
+</head>
+<body>
+    <header>
+        <a href="https://temps-action.com/todo-list">
             <img srcset="../img/image1.png 480w,../img/image1.png 800w" sizes="(max-width: 600px) 480px, 800px" src="../img/image1.png" alt="ToDo image">
-          </a>
-        </div> 
-     
-            <h2> Ajouter votre tâche </h2>
-            <form name="newTaskF" action="#" class="box" id="newTask" onsubmit="return false">
-                <strong>Nom de la tâche</strong> 
-                <input type="text" name="tache" size="25" placeholder = "Nouvelle tâche" required>
-                <label for="start"><strong>Date:</strong></label>
-                <input type="date" id="start" name="date" value="2022-04-01" min="2022-04-01" max="2024-04-30">
-                <strong>Catégorie : </strong>
-                <select name="categorie" size=1>
-                    <option>Tâche personnelle</option>
-                    <option>Tâche professionnelle</option>
-                    <option> Tâche partagée</option>
-                </select>
-                <br/>
-                <button type="submit" class="btn" onclick="ajouter()">Ajouter</button>
-                <button type="button" class="btn"  onclick="supprimer()">Supprimer</button>
-
-            </form>
-        <main>
-            <div class="box">
-                 
-                <table class="datatable">
-                    <thead>
-                        <tr>
-                        <th>Tâche</th>
-                        <th>Date </th>
-                        <th>Catégorie</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-              </div>
-        
-        </main>
-        
+        </a>
     </header>
-        <div class="footer">
-            <a href = "Partie_6.html"> Revenir à l'accueil </a><br>
-            <a href = "https://temps-action.com/todo-list"> Besoin d'aide ! </a>
-        </div>
-        
-    </body>
+    <h2> Add a task </h2>
+    <form name="newTask" action="#" class="box" id="new-task" class="container" onsubmit="ajouter();return false">
+        <strong>Name of the task</strong> 
+        <label for="name"></label>
+        <input type="text" name="name" id="name" placeholder="New task">
+        <label for="date"><strong>Date:</strong></label>
+        <input type="date" name="date" id="date"></input>
+        <label for="category"></label>
+        <strong>Category: </strong>
+        <select name="category" id="category">
+            <option>Personnal task</option>
+            <option>Professionel task</option>
+            <option>Shared Task</option>
+        </select>
+        <br/>
+        <button type="submit" class="btn" onclick="add()">Add</button>
+        <button type="button" class="btn"  onclick="supprimer()">Remove</button>
+    </form>
+    <main class="container">
+        <button class="supprimer">Delete</button>
+        <table id="table">
+            <tr>
+                <th>Task</th>
+                <th>Date</th>
+                <th>Category</th>
+                <th>Added on</th>
+                <th>Duration(s)</th>
+                <th>Completed on</th>
+            </tr>
+        </table>
+    </main>
+    <footer>
+        <p><a href="https://temps-action.com/todo-list">Help</a></p>
+        <p><a href="Partie_1.html">Home</a></p>
+    </footer>
+</body>
+    <script type="text/javascript" src="../js/script.js"></script>
+    <script type="text/javascript" src="../js/bender.js"></script>
+
 </html>
